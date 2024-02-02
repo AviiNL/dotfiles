@@ -15,6 +15,8 @@
       run-cache_file = "/dev/null";
       run-exec_search = true;
     };
+
+    # TODO: Convert to using nix-colors
     style = ''
       * {
         font-family: "FiraCode Nerd Font";
@@ -28,7 +30,7 @@
 
       #entry {
         border: none;
-        color: #222;
+        color: #AAA;
       }
 
       #input {
@@ -40,7 +42,7 @@
 
       #scroll {
         margin: 0px 350px;
-        background-color: rgba(76, 76, 76, 0.80);
+        background-color: rgba(10, 10, 10, 0.80);
         border-radius: 0px 0px 25px 25px;
         font-size: 1em;
         padding: 10px;
@@ -73,7 +75,7 @@
 
       #entry:selected {
         background-color: rgba(76, 76, 76, 0.60);
-        color: #fa8419;
+        color: #FFF;
         font-weight: 600;
         /*border: 3px solid red;*/
         /*word-wrap: break-word;*/

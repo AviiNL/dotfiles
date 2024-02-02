@@ -23,6 +23,8 @@
     ./samba.nix
   ];
 
+  networking.hostName = "mars";
+
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.supportedFilesystems = [ "btrfs" ];
   hardware.enableAllFirmware = true;

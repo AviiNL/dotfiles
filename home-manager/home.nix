@@ -2,6 +2,8 @@
 # Use this to configure your home environment (it replaces ~/.config/nixpkgs/home.nix)
 { inputs, outputs, lib, config, pkgs, ... }: {
   # You can import other home-manager modules here
+  colorscheme = inputs.nix-colors.colorSchemes.gruvbox-dark-hard;
+
   imports = [
     # If you want to use modules your own flake exports (from modules/home-manager):
     # outputs.homeManagerModules.example
@@ -29,6 +31,7 @@
     ./nushell.nix
 
     ./hyprland.nix
+    ./waybar.nix
     ./wofi.nix
   ];
 

@@ -1,14 +1,10 @@
 { inputs, outputs, config, pkgs, ... }:
 let wofi = "${config.programs.wofi.package}/bin/wofi";
 in {
-
-  # add ./common here when we got it
   imports = [
     inputs.nix-colors.homeManagerModule
     inputs.hyprland.homeManagerModules.default
   ];
-
-  colorscheme = inputs.nix-colors.colorSchemes.catppuccin-mocha;
 
   home.packages = [
     inputs.hyprland-contrib.packages.${pkgs.system}.grimblast
@@ -19,8 +15,8 @@ in {
     pkgs.swappy
     pkgs.wl-clipboard
     pkgs.jq
-
-    # inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-gtk
+    pkgs.swww
+    pkgs.playerctl
   ];
 
   nix.settings = {
@@ -54,8 +50,8 @@ in {
       windowrulev2 = [ "idleinhibit fullscreen, class:^(librewolf)$" ];
       monitor = [
         "DP-2, 2560x1440, 0x0, 1"
-        "HDMI-A-1, 1920x1080, 2560x0, 1"
-        "HDMI-A-2, 1920x1080, -1920x0, 1"
+        "HDMI-A-1, 1920x1080, 2560x180, 1"
+        "HDMI-A-2, 1920x1080, -1920x180, 1"
       ];
       workspace = [
         "1,monitor:DP-2,default:true"
@@ -64,6 +60,8 @@ in {
       ];
       exec-once = [
         # Background processes
+        "swww init"
+        "swww img ~/Pictures/wall2.png"
         "hyprctl dispatch workspace 1"
         "${pkgs.dbus}/bin/dbus-update-activation-environment --systemd --all"
         "goxlr-daemon"
@@ -73,11 +71,13 @@ in {
       bind = [
         # Browsers and Terminal
         ''$mod, Return, exec, "kitty"''
+        ''$mod, E, exec, "kitty"'' # Return is too far away
         ''$mod, B, exec, "librewolf"''
         ''$mod Shift, B, exec, "nix run nixpkgs#chromium"''
 
         # Launcher
-        "$mod, R, exec, [workspace 1 silent] ${wofi} -S drun"
+        "$mod, R, exec, ${wofi} -S drun"
+        "$mod SHIFT, R, exec, ${wofi} -S run"
 
         # Region Screenshot Clipboard
         '',Print, exec, grim -g "$(slurp -d)" - | wl-copy''
