@@ -17,10 +17,12 @@
 
     ./kitty.nix
     ./librewolf.nix
-    ./chromium.nix
+    # ./chromium.nix
     ./dolphin.nix
     ./vscode.nix
     ./git.nix
+
+    ./remmina.nix
 
     ./discord.nix
 
@@ -80,5 +82,5 @@
   systemd.user.startServices = "sd-switch";
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
-  home.stateVersion = "23.05";
+  home.stateVersion = "24.05";
 }

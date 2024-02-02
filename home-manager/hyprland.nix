@@ -1,4 +1,6 @@
-{ inputs, outputs, config, pkgs, ... }: {
+{ inputs, outputs, config, pkgs, ... }:
+let wofi = "${config.programs.wofi.package}/bin/wofi";
+in {
 
   # add ./common here when we got it
   imports = [
@@ -11,6 +13,14 @@
   home.packages = [
     inputs.hyprland-contrib.packages.${pkgs.system}.grimblast
     inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland
+    pkgs.xdg-utils
+    pkgs.grim
+    pkgs.slurp
+    pkgs.swappy
+    pkgs.wl-clipboard
+    pkgs.jq
+
+    # inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-gtk
   ];
 
   nix.settings = {
@@ -24,95 +34,72 @@
     xwayland.enable = true;
     systemd.enable = true;
 
-    # settings = [
-    #   bind = [
+    settings = {
+      "$mod" = "SUPER";
+      "$notifycmd" =
+        "notify-send -h string:x-canonical-private-synchronous:hypr-cfg -u low";
+      input = { kb_layout = "us"; };
+      general = {
+        gaps_in = 3;
+        gaps_out = 5;
+        border_size = 3;
+        "col.active_border" = " rgb(${config.colorscheme.palette.base07})";
+        "col.inactive_border" = "rgb(${config.colorscheme.palette.base02})";
+      };
+      decoration = { rounding = 5; };
+      misc = {
+        vrr = 2;
+        disable_hyprland_logo = 1;
+      };
+      windowrulev2 = [ "idleinhibit fullscreen, class:^(librewolf)$" ];
+      monitor = [
+        "DP-2, 2560x1440, 0x0, 1"
+        "HDMI-A-1, 1920x1080, 2560x0, 1"
+        "HDMI-A-2, 1920x1080, -1920x0, 1"
+      ];
+      workspace = [
+        "1,monitor:DP-2,default:true"
+        "2,monitor:HDMI-A-1,default:true"
+        "3,monitor:HDMI-A-2,default:true"
+      ];
+      exec-once = [
+        # Background processes
+        "hyprctl dispatch workspace 1"
+        "${pkgs.dbus}/bin/dbus-update-activation-environment --systemd --all"
+        "goxlr-daemon"
+        # Startup applications
+        "[workspace 2] discord"
+      ];
+      bind = [
+        # Browsers and Terminal
+        ''$mod, Return, exec, "kitty"''
+        ''$mod, B, exec, "librewolf"''
+        ''$mod Shift, B, exec, "nix run nixpkgs#chromium"''
 
-    #   ]
-    # ];
+        # Launcher
+        "$mod, R, exec, [workspace 1 silent] ${wofi} -S drun"
 
-    extraConfig = let wofi = "${config.programs.wofi.package}/bin/wofi";
-    in ''
-      # ASCII Art from https://fsymbols.com/generators/carty/
-      input {
-        kb_layout = us
-      }
+        # Region Screenshot Clipboard
+        '',Print, exec, grim -g "$(slurp -d)" - | wl-copy''
+        # Region Screenshot Edit
+        ''SHIFT, Print, exec, grim -g "$(slurp -d)" - | swappy -f -''
 
-      general {
-       	gaps_in = 3
-       	gaps_out = 5
-       	border_size = 3
-        col.active_border=0xff${config.colorscheme.palette.base07}
-        col.inactive_border=0xff${config.colorscheme.palette.base02}
-      }
+        # Active Window Screenshot Clipboard
+        ''
+          CTRL, Print, exec, grim -g "$(hyprctl activewindow -j | jq -r '.at | join(",")') $(hyprctl activewindow -j | jq -r '.size | join("x")')" - | wl-copy''
 
-      decoration {
-        rounding=5
-      }
+        # Active Window Screenshot Edit
+        ''
+          SHIFT CTRL,Print, exec, grim -g "$(hyprctl activewindow -j | jq -r '.at | join(",")') $(hyprctl activewindow -j | jq -r '.size | join("x")')" - | swappy -f -''
 
-      misc {
-        vrr = 2
-        disable_hyprland_logo = 0;
-      }
-
-      $notifycmd = notify-send -h string:x-canonical-private-synchronous:hypr-cfg -u low
-
-      monitor=DP-2, 2560x1440, 0x0, 1
-      monitor=HDMI-A-1, 1920x1080, 2560x0, 1
-      monitor=HDMI-A-2, 1920x1080, -1920x0, 1
-
-      workspace = 1,monitor:DP-2,default:true
-      workspace = 2,monitor:HDMI-A-1,default:true
-      workspace = 3,monitor:HDMI-A-2,default:true
-
-      # Background processes
-      exec-once = hyprctl dispatch workspace 1
-      exec-once = ${pkgs.dbus}/bin/dbus-update-activation-environment --systemd --all
-      exec-once = goxlr-daemon
-
-      # Foreground applications on start
-      exec-once = [workspace 2 silent] discord
-
-      # Shortcuts
-      bind = SUPER, Return, exec, "kitty"
-      bind = SUPER, B, exec, "librewolf"
-      bind = SUPERShift, B, exec, "chromium"
-      bind = SUPER, E, exec, "dolphin"
-      bind = SUPER, R, exec, ${wofi} -S drun
-
-      # bind = SUPER, w, exec, makoctl dismiss
-
-      bind = Alt, Tab, cyclenext
-      bind = Alt, Tab, bringactivetotop
-      bind = Alt Shift, Tab, cyclenext, prev
-      bind = Alt Shift, Tab, bringactivetotop
-
-      bind = SUPERSHIFT,Left,movewindow,l
-      bind = SUPERSHIFT,Right,movewindow,r
-      bind = SUPERSHIFT,Up,movewindow,u
-      bind = SUPERSHIFT,Down,movewindow,d
-
-      bind = SUPERSHIFT, 1, movetoworkspacesilent, 1
-      bind = SUPERSHIFT, 2, movetoworkspacesilent, 2
-      bind = SUPERSHIFT, 3, movetoworkspacesilent, 3
-
-      bind = SUPER, Q, killactive,
-      bind = SUPER, F, fullscreen, 0
-      bind = SUPER, F, exec, $notifycmd 'Fullscreen Mode'
-      bind = SUPER, S, pseudo,
-      bind = SUPER, S, exec, $notifycmd 'Pseudo Mode'
-      bind = SUPER, Space, togglefloating,
-      bind = SUPER, Space, centerwindow,
-
-      bindm=SUPER, mouse:272, movewindow
-      bindm=SUPER, mouse:273, resizewindow
-
-      binde = SUPERALT, h, resizeactive, -20 0
-      binde = SUPERALT, l, resizeactive, 20 0
-      binde = SUPERALT, k, resizeactive, 0 -20
-      binde = SUPERALT, j, resizeactive, 0 20
-
-      # Disable idle timeouts when librewolf is in fullscreen
-      windowrulev2 = idleinhibit fullscreen, class:^(librewolf)$
-    '';
+        # Window functions
+        "$mod, Q, killactive"
+        "$mod, F, fullscreen, 0"
+        "$mod, F, exec, $notifycmd 'Fullscreen Mode'"
+        "$mod, Space, togglefloating"
+        "$mod, Space, centerwindow"
+      ];
+      bindm = [ "$mod, mouse:272, movewindow" "$mod, mouse:273, resizewindow" ];
+    };
   };
 }

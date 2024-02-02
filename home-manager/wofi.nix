@@ -40,7 +40,7 @@
 
       #scroll {
         margin: 0px 350px;
-        background-color: rgba(126, 126, 126, 0.80);
+        background-color: rgba(76, 76, 76, 0.80);
         border-radius: 0px 0px 25px 25px;
         font-size: 1em;
         padding: 10px;
@@ -72,7 +72,7 @@
       /*}*/
 
       #entry:selected {
-        background-color: rgba(126, 126, 126, 0.60);
+        background-color: rgba(76, 76, 76, 0.60);
         color: #fa8419;
         font-weight: 600;
         /*border: 3px solid red;*/

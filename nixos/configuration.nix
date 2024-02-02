@@ -119,17 +119,15 @@
 
   security.sudo.wheelNeedsPassword = false;
 
-  services.xserver.enable = true;
-  services.xserver.displayManager = {
-    defaultSession = "hyprland";
-    lightdm = {
-      enable = true;
-      greeter.enable = true;
+  services.greetd = {
+    enable = true;
+    settings = rec {
+      initial_session = {
+        command = "Hyprland";
+        user = "aviinl";
+      };
+      default_session = initial_session;
     };
-    # autoLogin = {
-    #   enable = true;
-    #   user = "aviinl";
-    # };
   };
 
   programs.hyprland = {
@@ -152,17 +150,6 @@
       PermitRootLogin = "no";
       # Use keys only. Remove if you want to SSH using password (not recommended)
       PasswordAuthentication = false;
-    };
-  };
-
-  services.greetd = {
-    enable = true;
-    settings = rec {
-      initial_session = {
-        command = "Hyprland";
-        user = "aviinl";
-      };
-      default_session = initial_session;
     };
   };
 
