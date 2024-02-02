@@ -16,6 +16,7 @@ in {
     pkgs.wl-clipboard
     pkgs.jq
     pkgs.swww
+    pkgs.wl-color-picker
   ];
 
   nix.settings = {
@@ -38,8 +39,8 @@ in {
         gaps_in = 3;
         gaps_out = 5;
         border_size = 3;
-        "col.active_border" = " rgb(${config.colorscheme.palette.base07})";
-        "col.inactive_border" = "rgb(${config.colorscheme.palette.base02})";
+        "col.active_border" = "rgba(${config.colorscheme.palette.base07}80)";
+        "col.inactive_border" = "rgba(${config.colorscheme.palette.base02}80)";
       };
       decoration = { rounding = 5; };
       misc = {

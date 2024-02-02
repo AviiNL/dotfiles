@@ -68,8 +68,9 @@
       settings = {
         sync_address = "https://atuin.avii.nl";
         filter_mode_shell_up_key_binding = "session";
+        filter_mode = "session";
         enter_accept = true;
-        #                key_path = config.sops.secrets."atuin_key".path;
+        # key_path = config.sops.secrets."atuin_key".path;
       };
     };
   };
