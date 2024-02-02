@@ -44,6 +44,9 @@ let
   hasHyprland = config.wayland.windowManager.hyprland.enable;
   hyprland = config.wayland.windowManager.hyprland.package;
 in {
+
+  home.packages = [ pkgs.playerctl ];
+
   # Let it try to start a few more times
   systemd.user.services.waybar = { Unit.StartLimitBurst = 30; };
   programs.waybar = {
@@ -83,6 +86,7 @@ in {
           "pulseaudio"
 
           "cpu"
+          "temperature"
           "custom/gpu"
           "memory"
 
@@ -106,6 +110,12 @@ in {
         cpu = {
           format = "   {usage} %";
           tooltip-format = " 0°C";
+        };
+
+        temperature = {
+          interval = 3;
+          hwmon-path = "/sys/class/hwmon/hwmon2/temp1_input";
+          format = " {temperatureC}°C";
         };
 
         # nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader
@@ -145,14 +155,6 @@ in {
             deactivated = "󰒲";
           };
         };
-        # battery = {
-        #   bat = "BAT0";
-        #   interval = 10;
-        #   format-icons = [ "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
-        #   format = "{icon} {capacity}%";
-        #   format-charging = "󰂄 {capacity}%";
-        #   onclick = "";
-        # };
         "sway/window" = { max-length = 20; };
         network = {
           interval = 3;
@@ -166,31 +168,6 @@ in {
             Down: {bandwidthDownBits}'';
           on-click = "";
         };
-        # "custom/tailscale-ping" = {
-        #   interval = 10;
-        #   return-type = "json";
-        #   exec = let
-        #     inherit (builtins) concatStringsSep attrNames;
-        #     hosts = attrNames outputs.nixosConfigurations;
-        #     homeMachine = "merope";
-        #     remoteMachine = "alcyone";
-        #   in jsonOutput "tailscale-ping" {
-        #     # Build variables for each host
-        #     pre = ''
-        #       set -o pipefail
-        #       ${concatStringsSep "\n" (map (host: ''
-        #         ping_${host}="$(${timeout} 2 ${ping} -c 1 -q ${host} 2>/dev/null | ${tail} -1 | ${cut} -d '/' -f5 | ${cut} -d '.' -f1)ms" || ping_${host}="Disconnected"
-        #       '') hosts)}
-        #     '';
-        #     # Access a remote machine's and a home machine's ping
-        #     text = "  $ping_${remoteMachine} /  $ping_${homeMachine}";
-        #     # Show pings from all machines
-        #     tooltip = concatStringsSep "\n"
-        #       (map (host: "${host}: $ping_${host}") hosts);
-        #   };
-        #   format = "{}";
-        #   on-click = "";
-        # };
         "custom/menu" = let
           isFullScreen = if hasHyprland then
             "${hyprland}/bin/hyprctl activewindow -j | ${jq} -e '.fullscreen' &>/dev/null"
@@ -215,80 +192,6 @@ in {
           exec = "echo $USER@$HOSTNAME";
           on-click = "${systemctl} --user restart waybar";
         };
-        # "custom/unread-mail" = {
-        #   interval = 2;
-        #   return-type = "json";
-        #   exec = jsonOutput "unread-mail" {
-        #     pre = ''
-        #       count=$(${find} ~/Mail/*/Inbox/new -type f | ${wc} -l)
-        #       if ${pgrep} mbsync &>/dev/null; then
-        #         status="syncing"
-        #       else if [ "$count" == "0" ]; then
-        #         status="read"
-        #       else
-        #         status="unread"
-        #       fi
-        #       fi
-        #     '';
-        #     text = "$count";
-        #     alt = "$status";
-        #   };
-        #   format = "{icon}  ({})";
-        #   format-icons = {
-        #     "read" = "󰇯";
-        #     "unread" = "󰇮";
-        #     "syncing" = "󰁪";
-        #   };
-        # };
-        # "custom/gpg-agent" = {
-        #   interval = 2;
-        #   return-type = "json";
-        #   exec = let
-        #     gpgCmds = import ../../../cli/gpg-commands.nix { inherit pkgs; };
-        #   in jsonOutput "gpg-agent" {
-        #     pre = ''
-        #       status=$(${gpgCmds.isUnlocked} && echo "unlocked" || echo "locked")'';
-        #     alt = "$status";
-        #     tooltip = "GPG is $status";
-        #   };
-        #   format = "{icon}";
-        #   format-icons = {
-        #     "locked" = "";
-        #     "unlocked" = "";
-        #   };
-        #   on-click = "";
-        # };
-        # "custom/gammastep" = {
-        #   interval = 2;
-        #   return-type = "json";
-        #   exec = jsonOutput "gammastep" {
-        #     pre = ''
-        #       if unit_status="$(${systemctl} --user is-active gammastep)"; then
-        #         status="$unit_status ($(${journalctl} --user -u gammastep.service -g 'Period: ' | ${tail} -1 | ${cut} -d ':' -f6 | ${xargs}))"
-        #       else
-        #         status="$unit_status"
-        #       fi
-        #     '';
-        #     alt = "\${status:-inactive}";
-        #     tooltip = "Gammastep is $status";
-        #   };
-        #   format = "{icon}";
-        #   format-icons = {
-        #     "activating" = "󰁪 ";
-        #     "deactivating" = "󰁪 ";
-        #     "inactive" = "? ";
-        #     "active (Night)" = " ";
-        #     "active (Nighttime)" = " ";
-        #     "active (Transition (Night)" = " ";
-        #     "active (Transition (Nighttime)" = " ";
-        #     "active (Day)" = " ";
-        #     "active (Daytime)" = " ";
-        #     "active (Transition (Day)" = " ";
-        #     "active (Transition (Daytime)" = " ";
-        #   };
-        #   on-click =
-        #     "${systemctl} --user is-active gammastep && ${systemctl} --user stop gammastep || ${systemctl} --user start gammastep";
-        # };
         "custom/currentplayer" = {
           interval = 2;
           return-type = "json";
@@ -324,11 +227,17 @@ in {
         };
         "custom/player" = {
           exec-if = "${playerctl} status 2>/dev/null";
-          exec = ''
-            ${playerctl} metadata --format '{"text": "{{title}} - {{artist}}", "alt": "{{status}}", "tooltip": "{{title}} - {{artist}} ({{album}})"}' 2>/dev/null '';
+          exec = jsonOutput "custom/player" {
+            text =
+              "$(${playerctl} metadata --format '{{title}} - {{artist}} ({{album}})' 2>/dev/null | jq -sRr @html)";
+            alt = "$(${playerctl} metadata --format '{{status}}')";
+            tooltip =
+              "$(${playerctl} metadata --format '{{title}} - {{artist}} ({{album}})' 2>/dev/null | jq -sRr @html)";
+            # ${playerctl} metadata --format '{"text": "{{title}} - {{artist}}", "alt": "{{status}}", "tooltip": "{{title}} - {{artist}} ({{album}})"}' | jq -sRr @html 2>/dev/null
+          };
           return-type = "json";
           interval = 2;
-          max-length = 30;
+          max-length = 80;
           format = "{icon} {}";
           format-icons = {
             "Playing" = "󰐊";

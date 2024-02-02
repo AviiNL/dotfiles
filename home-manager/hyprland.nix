@@ -16,7 +16,6 @@ in {
     pkgs.wl-clipboard
     pkgs.jq
     pkgs.swww
-    pkgs.playerctl
   ];
 
   nix.settings = {
@@ -61,7 +60,7 @@ in {
       exec-once = [
         # Background processes
         "swww init"
-        "swww img ~/Pictures/wall2.png"
+        "swww img ~/Pictures/mario.gif"
         "hyprctl dispatch workspace 1"
         "${pkgs.dbus}/bin/dbus-update-activation-environment --systemd --all"
         "goxlr-daemon"
@@ -71,7 +70,7 @@ in {
       bind = [
         # Browsers and Terminal
         ''$mod, Return, exec, "kitty"''
-        ''$mod, E, exec, "kitty"'' # Return is too far away
+        ''$mod, D, exec, "dolphin"'' # Return is too far away
         ''$mod, B, exec, "librewolf"''
         ''$mod Shift, B, exec, "nix run nixpkgs#chromium"''
 
