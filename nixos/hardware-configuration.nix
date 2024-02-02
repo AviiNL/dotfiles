@@ -4,80 +4,76 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
-    ];
+  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
-  boot.initrd.availableKernelModules = [ "nvme" "ahci" "xhci_pci" "usb_storage" "usbhid" "sd_mod" "nouveau" ];
+  boot.initrd.availableKernelModules =
+    [ "nvme" "ahci" "xhci_pci" "usb_storage" "usbhid" "sd_mod" "nouveau" ];
   boot.initrd.kernelModules = [ "dm-snapshot" ];
   boot.initrd.systemd.enable = true;
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" =
-    { device = "/dev/disk/by-uuid/fc3ef879-fb4f-45bb-9d8e-d7e581f39f1c";
-      fsType = "btrfs";
-      options = [ "subvol=root" "noatime" "compress=zstd" ];
-    };
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/fc3ef879-fb4f-45bb-9d8e-d7e581f39f1c";
+    fsType = "btrfs";
+    options = [ "subvol=root" "noatime" "compress=zstd" ];
+  };
 
-  fileSystems."/home" =
-    { device = "/dev/disk/by-uuid/fc3ef879-fb4f-45bb-9d8e-d7e581f39f1c";
-      fsType = "btrfs";
-      options = [ "subvol=home" "noatime" "compress=zstd" ];
-    };
+  fileSystems."/home" = {
+    device = "/dev/disk/by-uuid/fc3ef879-fb4f-45bb-9d8e-d7e581f39f1c";
+    fsType = "btrfs";
+    options = [ "subvol=home" "noatime" "compress=zstd" ];
+  };
 
-  fileSystems."/nix" =
-    { device = "/dev/disk/by-uuid/fc3ef879-fb4f-45bb-9d8e-d7e581f39f1c";
-      fsType = "btrfs";
-      options = [ "subvol=nix" "noatime" "compress=zstd" ];
-    };
+  fileSystems."/nix" = {
+    device = "/dev/disk/by-uuid/fc3ef879-fb4f-45bb-9d8e-d7e581f39f1c";
+    fsType = "btrfs";
+    options = [ "subvol=nix" "noatime" "compress=zstd" ];
+  };
 
-  fileSystems."/persist" =
-    { device = "/dev/disk/by-uuid/fc3ef879-fb4f-45bb-9d8e-d7e581f39f1c";
-      fsType = "btrfs";
-      options = [ "subvol=persist" "noatime" "compress=zstd" ];
-    };
+  fileSystems."/persist" = {
+    device = "/dev/disk/by-uuid/fc3ef879-fb4f-45bb-9d8e-d7e581f39f1c";
+    fsType = "btrfs";
+    options = [ "subvol=persist" "noatime" "compress=zstd" ];
+  };
 
-  fileSystems."/var/log" =
-    { device = "/dev/disk/by-uuid/fc3ef879-fb4f-45bb-9d8e-d7e581f39f1c";
-      fsType = "btrfs";
-      options = [ "subvol=log" "noatime" "compress=zstd" ];
-    };
+  fileSystems."/var/log" = {
+    device = "/dev/disk/by-uuid/fc3ef879-fb4f-45bb-9d8e-d7e581f39f1c";
+    fsType = "btrfs";
+    options = [ "subvol=log" "noatime" "compress=zstd" ];
+  };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/F1FE-7E94";
-      fsType = "vfat";
-    };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/F1FE-7E94";
+    fsType = "vfat";
+  };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/66973f9c-d320-485a-8109-23f158b15016"; }
-    ];
+    [{ device = "/dev/disk/by-uuid/66973f9c-d320-485a-8109-23f158b15016"; }];
 
-    hardware = {
-        cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-        opengl = {
-            enable = true;
-            driSupport = true;
-            driSupport32Bit = true;
-        };
-        nvidia = {
-            open = false;
-            modesetting.enable = true;
-            nvidiaSettings = true;
-
-            package = config.boot.kernelPackages.nvidiaPackages.stable;
-
-            powerManagement = {
-                enable = false;
-                finegrained = false;
-            };
-        };
+  hardware = {
+    cpu.amd.updateMicrocode =
+      lib.mkDefault config.hardware.enableRedistributableFirmware;
+    opengl = {
+      enable = true;
+      driSupport = true;
+      driSupport32Bit = true;
     };
+    nvidia = {
+      open = false;
+      modesetting.enable = true;
+      nvidiaSettings = true;
 
-    services.xserver = {
-        videoDrivers = [ "nvidia" ];
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
+
+      powerManagement = {
+        enable = false;
+        finegrained = false;
+      };
     };
+  };
 
+  services.xserver = { videoDrivers = [ "nvidia" ]; };
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's

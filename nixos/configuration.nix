@@ -21,6 +21,8 @@
     ./keyboard.nix
     ./sound.nix
     ./samba.nix
+
+    ./gaming.nix
   ];
 
   networking.hostName = "mars";
