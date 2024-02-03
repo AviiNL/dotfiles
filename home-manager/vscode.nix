@@ -43,6 +43,7 @@
         # Nix IDE
         "nix.enableLanguageServer" = true;
         "nix.serverPath" = "${pkgs.nixd}/bin/nixd";
+        "git.autofetch" = true;
       };
       keybindings = [
         {
