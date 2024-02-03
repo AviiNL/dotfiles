@@ -19,12 +19,6 @@ in {
     pkgs.wl-color-picker
   ];
 
-  nix.settings = {
-    substituters = [ "https://hyprland.cachix.org" ];
-    trusted-public-keys =
-      [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
-  };
-
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;
@@ -49,9 +43,9 @@ in {
       };
       windowrulev2 = [ "idleinhibit fullscreen, class:^(librewolf)$" ];
       monitor = [
-        "DP-2, 2560x1440, 0x0, 1"
-        "HDMI-A-1, 1920x1080, 2560x180, 1"
-        "HDMI-A-2, 1920x1080, -1920x180, 1"
+        "DP-2, 2560x1440@165, 0x0, 1"
+        "HDMI-A-1, 1920x1080@60, 2560x180, 1"
+        "HDMI-A-2, 1920x1080@60, -1920x180, 1"
       ];
       workspace = [
         "1,monitor:DP-2,default:true"

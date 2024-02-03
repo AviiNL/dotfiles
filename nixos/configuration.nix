@@ -19,10 +19,12 @@
     # Import your generated (nixos-generate-config) hardware configuration
     ./hardware-configuration.nix
     ./keyboard.nix
-    ./sound.nix
     ./samba.nix
 
     ./gaming.nix
+
+    ./desktop/wayland
+    #./desktop/x11
   ];
 
   networking.hostName = "mars";
@@ -88,10 +90,6 @@
     value.source = value.flake;
   }) config.nix.registry;
 
-  # environment.etc."greetd/environments".text = ''
-  #   Hyprland
-  # '';
-
   # TODO: Configure your system-wide user settings (groups, etc), add more users as needed.
   users.users.aviinl = {
     description = "AviiNL";
@@ -109,6 +107,12 @@
   };
 
   nix.settings = {
+    substituters =
+      [ "https://nix-gaming.cachix.org" "https://hyprland.cachix.org" ];
+    trusted-public-keys = [
+      "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
+      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+    ];
     trusted-users = [ "root" "@wheel" ];
     experimental-features = [ "nix-command" "flakes" ];
     auto-optimise-store = true;
@@ -122,29 +126,6 @@
   };
 
   security.sudo.wheelNeedsPassword = false;
-
-  services.greetd = {
-    enable = true;
-    settings = rec {
-      initial_session = {
-        command = "Hyprland";
-        user = "aviinl";
-      };
-      default_session = initial_session;
-    };
-  };
-
-  programs.hyprland = {
-    enable = true;
-    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
-    portalPackage = pkgs.xdg-desktop-portal-hyprland;
-  };
-
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
-  environment.sessionVariables.WLR_NO_HARDWARE_CURSORS = "1";
-  environment.sessionVariables.QT_QPA_PLATFORM = "wayland";
-  environment.sessionVariables.QT_QPA_PLATFORMTHEME = "qt5ct";
-  environment.sessionVariables.GTK_THEME = "Adwaita:dark";
 
   # This setups a SSH server. Very important if you're setting up a headless system.
   # Feel free to remove if you don't need it.

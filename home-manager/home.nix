@@ -30,12 +30,12 @@
     ./remmina.nix
 
     ./discord.nix
+    ./gaming.nix
 
     ./nushell.nix
 
-    ./hyprland.nix
-    ./waybar.nix
-    ./wofi.nix
+    ./desktop/wayland
+    #./desktop/x11
   ];
 
   nixpkgs = {

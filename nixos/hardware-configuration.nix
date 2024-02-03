@@ -6,11 +6,21 @@
 {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
-  boot.initrd.availableKernelModules =
-    [ "nvme" "ahci" "xhci_pci" "usb_storage" "usbhid" "sd_mod" "nouveau" ];
+  boot.initrd.availableKernelModules = [
+    "nvme"
+    "ahci"
+    "xhci_pci"
+    "usb_storage"
+    "usbhid"
+    "sd_mod"
+    "nouveau"
+    "nvidia_drm"
+  ];
+
   boot.initrd.kernelModules = [ "dm-snapshot" ];
   boot.initrd.systemd.enable = true;
-  boot.kernelModules = [ "kvm-amd" ];
+  boot.kernelModules = [ "kvm-amd" "nvidia_drm" ];
+  boot.kernelParams = [ "modeset=1" "fbdev=1" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" = {
@@ -64,7 +74,7 @@
       modesetting.enable = true;
       nvidiaSettings = true;
 
-      package = config.boot.kernelPackages.nvidiaPackages.stable;
+      package = config.boot.kernelPackages.nvidiaPackages.production;
 
       powerManagement = {
         enable = false;

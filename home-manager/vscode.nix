@@ -44,6 +44,7 @@
         "nix.enableLanguageServer" = true;
         "nix.serverPath" = "${pkgs.nixd}/bin/nixd";
         "git.autofetch" = true;
+        "explorer.confirmDragAndDrop" = false;
       };
       keybindings = [
         {
