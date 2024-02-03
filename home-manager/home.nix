@@ -16,11 +16,14 @@
     # You can also split up your configuration and import pieces of it here:
     # ./nvim.nix
     ./font.nix
+    ./gtk.nix
+    ./qt.nix
 
     ./kitty.nix
     ./librewolf.nix
     # ./chromium.nix
-    ./dolphin.nix
+    #./dolphin.nix
+    ./nemo.nix
     ./vscode.nix
     ./git.nix
 

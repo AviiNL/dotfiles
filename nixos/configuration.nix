@@ -142,6 +142,7 @@
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
   environment.sessionVariables.WLR_NO_HARDWARE_CURSORS = "1";
+  environment.sessionVariables.QT_QPA_PLATFORM = "wayland";
   environment.sessionVariables.QT_QPA_PLATFORMTHEME = "qt5ct";
   environment.sessionVariables.GTK_THEME = "Adwaita:dark";
 

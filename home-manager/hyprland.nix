@@ -71,7 +71,8 @@ in {
       bind = [
         # Browsers and Terminal
         ''$mod, Return, exec, "kitty"''
-        ''$mod, D, exec, "dolphin"'' # Return is too far away
+        ''$mod, E, exec, "kitty"''
+        ''$mod, D, exec, "nemo"''
         ''$mod, B, exec, "librewolf"''
         ''$mod Shift, B, exec, "nix run nixpkgs#chromium"''
 

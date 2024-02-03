@@ -1,6 +1,10 @@
 { config, pkgs, lib, ... }:
 let inherit (config.colorscheme) palette;
 in {
+
+  # look here for inspiration to fix: "ansi"
+  # https://github.com/Misterio77/nix-config/blob/main/home/misterio/features/desktop/common/wayland-wm/wezterm.nix
+
   programs.vscode.userSettings = {
     # Original colors are from gruvbox-dark-hard by jdinhify
     # https://github.com/jdinhify/vscode-theme-gruvbox/blob/main/themes/gruvbox-dark-hard.json
