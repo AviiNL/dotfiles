@@ -28,6 +28,7 @@
     ./git.nix
 
     ./remmina.nix
+    ./vlc.nix
 
     ./discord.nix
     ./gaming.nix
