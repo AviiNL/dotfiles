@@ -29,6 +29,7 @@
 
     ./remmina.nix
     ./vlc.nix
+    ./obs.nix
 
     ./discord.nix
     ./gaming.nix

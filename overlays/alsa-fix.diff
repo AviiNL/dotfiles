@@ -1,0 +1,11 @@
+--- a/share/alsa/ucm2/common/pcm/split.conf	2024-02-04 14:05:31.585852635 +0100
++++ b/share/alsa/ucm2/common/pcm/split.conf	2024-02-04 14:05:57.214987234 +0100
+@@ -326,7 +326,7 @@
+ 	If.0 {
+ 		Condition {
+ 			Type String
+-			Empty "${var:__Device}"
++			Empty "${var:-__Device}"
+ 		}
+ 		True.Define.__Device "0"
+ 	}

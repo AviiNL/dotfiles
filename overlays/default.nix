@@ -1,5 +1,9 @@
-# This file defines overlays
-{ inputs, ... }: {
+{ outputs, inputs }:
+let
+  addPatches = pkg: patches:
+    pkg.overrideAttrs
+    (oldAttrs: { patches = (oldAttrs.patches or [ ]) ++ patches; });
+in {
   # This one brings our custom packages from the 'pkgs' directory
   additions = final: _prev: import ../pkgs { pkgs = final; };
 
@@ -8,6 +12,11 @@
   # https://nixos.wiki/wiki/Overlays
   modifications = final: prev:
     {
+
+      # FIXME: This aint it either...
+      # alsa-lib = addPatches prev.alsa-lib [ ./alsa-fix.diff ];
+      # alsa-ucm-conf = addPatches prev.alsa-ucm-conf [ ./alsa-fix.diff ];
+
       # example = prev.example.overrideAttrs (oldAttrs: rec {
       # ...
       # });

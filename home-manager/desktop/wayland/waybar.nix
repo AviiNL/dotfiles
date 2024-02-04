@@ -99,12 +99,10 @@ in {
 
         clock = {
           interval = 1;
-          format = "{:%d/%m %H:%M:%S}";
-          format-alt = "{:%Y-%m-%d %H:%M:%S %z}";
+          format = "<big>{:%H:%M:%S}</big>";
+          format-alt = "{:%a, %d %b %Y %H:%M:%S}";
           on-click-left = "mode";
-          tooltip-format = ''
-            <big>{:%Y %B}</big>
-            <tt><small>{calendar}</small></tt>'';
+          tooltip-format = "<tt><small>{calendar}</small></tt>";
         };
 
         cpu = {
@@ -299,9 +297,11 @@ in {
 
       #clock {
         background-color: #${palette.base01};
+        color: #${palette.base0A};
         padding-right: 1em;
         padding-left: 1em;
         border-radius: 0.5em;
+        font-weight: 600;
       }
 
       #custom-menu {

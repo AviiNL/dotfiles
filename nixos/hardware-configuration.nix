@@ -15,13 +15,22 @@
     "sd_mod"
     "nouveau"
     "nvidia_drm"
+    "v4l2loopback"
   ];
 
   boot.initrd.kernelModules = [ "dm-snapshot" ];
   boot.initrd.systemd.enable = true;
-  boot.kernelModules = [ "kvm-amd" "nvidia_drm" ];
+  boot.kernelModules = [ "kvm-amd" "nvidia_drm" "v4l2loopback" ];
   boot.kernelParams = [ "modeset=1" "fbdev=1" ];
-  boot.extraModulePackages = [ ];
+  boot.extraModulePackages = [ config.boot.kernelPackages.v4l2loopback.out ];
+
+  # Set initial kernel module settings
+  boot.extraModprobeConfig = ''
+    # exclusive_caps: Skype, Zoom, Teams etc. will only show device when actually streaming
+    # card_label: Name of virtual camera, how it'll show up in Skype, Zoom, Teams
+    # https://github.com/umlaeute/v4l2loopback
+    options v4l2loopback exclusive_caps=1 card_label="Virtual Camera"
+  '';
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/fc3ef879-fb4f-45bb-9d8e-d7e581f39f1c";
@@ -68,6 +77,11 @@
       enable = true;
       driSupport = true;
       driSupport32Bit = true;
+      extraPackages = with pkgs; [
+        vaapiVdpau
+        libvdpau-va-gl
+        nvidia-vaapi-driver
+      ];
     };
     nvidia = {
       open = false;

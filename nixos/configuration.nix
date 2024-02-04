@@ -21,6 +21,7 @@
     ./keyboard.nix
     ./samba.nix
 
+    ./flatpak.nix
     ./gaming.nix
 
     ./desktop/wayland
