@@ -24,7 +24,8 @@
   environment.systemPackages = with pkgs; [
     goxlr-utility
     pavucontrol
-    alsa-ucm-conf # TODO: Override this with files from github
+    # alsa-ucm-conf
+    # alsa-ucm-conf-fix
   ];
 
   services.udev.packages = [ pkgs.goxlr-utility ];

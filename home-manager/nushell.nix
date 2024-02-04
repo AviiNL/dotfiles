@@ -33,10 +33,19 @@
             } else {
                 $profile
             }
-            let base = "sudo nixos-rebuild switch --flake ~/nix#"
+            let base = "sudo nixos-rebuild switch --cores 10 --max-jobs 2 --flake ~/dotfiles#"
             let cmd = $base + $p
             echo $cmd
             nu -c $cmd
+        }
+
+        def killall [name: string, signal?: int] {
+          let s = if ($signal == null) {
+            1
+          } else {
+            $signal
+          }
+          ps | find $name | each {|p| kill -s $signal $p.pid} | ignore
         }
       '';
       shellAliases = {

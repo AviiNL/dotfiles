@@ -64,11 +64,12 @@ in {
       ];
       bind = [
         # Browsers and Terminal
-        ''$mod, Return, exec, "kitty"''
-        ''$mod, E, exec, "kitty"''
-        ''$mod, D, exec, "nemo"''
-        ''$mod, B, exec, "librewolf"''
-        ''$mod Shift, B, exec, "nix run nixpkgs#chromium"''
+        "$mod, Return, exec, kitty"
+        "$mod, E, exec, kitty"
+        "$mod, D, exec, nemo"
+        "$mod, C, exec, code"
+        "$mod, B, exec, librewolf"
+        "$mod SHIFT, B, exec, kitty -e sh -c 'nix run nixpkgs#chromium'"
 
         # Launcher
         "$mod, R, exec, ${wofi} -S drun"
