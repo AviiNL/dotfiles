@@ -20,7 +20,7 @@ in {
   ];
 
   wayland.windowManager.hyprland =
-    let hyprplugins = inputs.hyprland-plugins.packages.${pkgs.system};
+    let plugins = inputs.hyprland-plugins.packages.${pkgs.system};
     in {
       enable = true;
       xwayland.enable = true;
@@ -28,7 +28,8 @@ in {
       package = inputs.hyprland.packages."${pkgs.system}".hyprland;
 
       plugins = [
-        # hyprplugins.hyprtrails
+        # plugins.hyprtrails
+        # plugins.hyprbars
       ];
 
       settings = {
