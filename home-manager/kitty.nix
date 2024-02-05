@@ -72,6 +72,7 @@
       };
       extraConfig = let inherit (config.colorscheme) palette;
       in ''
+        background_opacity 0.8
         background #${palette.base00}
         foreground #${palette.base05}
         selection_background #${palette.base05}

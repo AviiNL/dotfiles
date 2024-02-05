@@ -95,6 +95,10 @@
         finegrained = false;
       };
     };
+    opentabletdriver = {
+      enable = true;
+      daemon.enable = true;
+    };
   };
 
   services.xserver = { videoDrivers = [ "nvidia" ]; };

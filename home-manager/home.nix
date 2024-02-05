@@ -20,12 +20,15 @@
     ./qt.nix
 
     ./kitty.nix
-    ./librewolf.nix
+    #./librewolf.nix
+    ./firefox.nix
     # ./chromium.nix
     #./dolphin.nix
     ./nemo.nix
     ./vscode.nix
     ./git.nix
+
+    ./krita.nix
 
     ./remmina.nix
     ./vlc.nix
@@ -75,7 +78,7 @@
 
   # TODO: Add stuff for your user as you see fit:
   # programs.neovim.enable = true;
-  home.packages = with pkgs; [ fastfetch ];
+  home.packages = with pkgs; [ fastfetch unzip ];
 
   # Enable home-manager and git
   programs.home-manager.enable = true;

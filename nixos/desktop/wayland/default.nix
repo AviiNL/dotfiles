@@ -1,16 +1,20 @@
 { inputs, outputs, config, lib, pkgs, ... }: {
   imports = [ ./sound.nix ];
 
-  services.greetd = {
-    enable = true;
-    settings = rec {
-      initial_session = {
-        command = "Hyprland";
-        user = "aviinl";
-      };
-      default_session = initial_session;
-    };
-  };
+  services.xserver.enable = true;
+  services.xserver.wacom.enable = true;
+  services.xserver.displayManager.gdm.enable = true;
+
+  # services.greetd = {
+  #   enable = true;
+  #   settings = rec {
+  #     initial_session = {
+  #       command = "Hyprland";
+  #       user = "aviinl";
+  #     };
+  #     default_session = initial_session;
+  #   };
+  # };
 
   programs.hyprland = {
     enable = true;
