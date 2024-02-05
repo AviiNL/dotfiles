@@ -37,7 +37,7 @@
         "terminal.integrated.fontFamily" =
           "Consolas, Symbols Nerd Font Mono, monospace";
         "workbench.statusBar.visible" = true;
-        # "workbench.colorTheme" = "Gruvbox Dark Hard";
+        "workbench.colorTheme" = "Gruvbox Dark Hard";
         "git.confirmSync" = false;
 
         # Nix IDE

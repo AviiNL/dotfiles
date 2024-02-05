@@ -33,7 +33,7 @@
             } else {
                 $profile
             }
-            let base = "sudo nixos-rebuild switch --cores 10 --max-jobs 2 --flake ~/dotfiles#"
+            let base = "sudo nixos-rebuild switch --option eval-cache false --cores 10 --max-jobs 2 --flake ~/dotfiles#"
             let cmd = $base + $p
             echo $cmd
             nu -c $cmd
