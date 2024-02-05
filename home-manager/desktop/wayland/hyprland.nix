@@ -69,7 +69,7 @@ in {
           "${pkgs.dbus}/bin/dbus-update-activation-environment --systemd --all"
           "goxlr-daemon"
           # Startup applications
-          "[workspace 2] discord"
+          "[workspace 2] vesktop"
         ];
         bind = [
           # Browsers and Terminal

@@ -76,6 +76,9 @@
     };
   };
 
+  programs.nix-ld.enable = true;
+  # programs.nix-alien.enable = true;
+
   # This will add each flake input as a registry
   # To make nix3 commands consistent with your flake
   nix.registry = (lib.mapAttrs (_: flake: { inherit flake; }))

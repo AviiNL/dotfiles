@@ -1,4 +1,3 @@
 { config, pkgs, ... }: {
-
-  home.packages = with pkgs; [ cinnamon.nemo-with-extensions ];
+  home.packages = with pkgs.cinnamon; [ nemo-with-extensions ];
 }

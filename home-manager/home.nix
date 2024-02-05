@@ -5,6 +5,7 @@
   colorscheme = inputs.nix-colors.colorSchemes.vice;
 
   imports = [
+    ./desktop/xdg.nix
     # If you want to use modules your own flake exports (from modules/home-manager):
     # outputs.homeManagerModules.example
     outputs.homeManagerModules.fonts
