@@ -33,6 +33,7 @@
 
     ./remmina.nix
     ./vlc.nix
+    ./plex.nix
     ./obs.nix
 
     ./discord.nix
