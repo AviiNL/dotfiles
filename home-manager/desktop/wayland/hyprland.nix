@@ -9,6 +9,7 @@ in {
   home.packages = [
     inputs.hyprland-contrib.packages.${pkgs.system}.grimblast
     inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland
+    pkgs.xdg-desktop-portal-wlr
     pkgs.xdg-utils
     pkgs.grim
     pkgs.slurp
@@ -18,6 +19,8 @@ in {
     pkgs.swww
     pkgs.wl-color-picker
   ];
+
+  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-wlr ];
 
   wayland.windowManager.hyprland =
     let plugins = inputs.hyprland-plugins.packages.${pkgs.system};
@@ -69,7 +72,7 @@ in {
           "${pkgs.dbus}/bin/dbus-update-activation-environment --systemd --all"
           "goxlr-daemon"
           # Startup applications
-          "[workspace 2] vesktop"
+          "[workspace 2] webcord"
         ];
         bind = [
           # Browsers and Terminal
