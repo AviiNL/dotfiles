@@ -4,10 +4,7 @@ let inherit (config.colorscheme) palette;
 in {
   home.packages = with pkgs; [ vesktop ];
 
-  #home.persistence = {
-  #  "/persist/home/misterio".directories = [ ".config/discord" ];
-  #};
-
+  # this doesnt fix anything either .. >_<
   # xdg.configFile."vesktop/state.json".text = ''
   #   {
   #     "firstLaunch": true
