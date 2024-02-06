@@ -102,6 +102,16 @@ in {
           ''
             SHIFT CTRL,Print, exec, grim -g "$(hyprctl activewindow -j | jq -r '.at | join(",")') $(hyprctl activewindow -j | jq -r '.size | join("x")')" - | swappy -f -''
 
+          # Media
+          ",XF86AudioNext,exec,playerctl next"
+          ",XF86AudioPrev,exec,playerctl previous"
+          ",XF86AudioPlay,exec,playerctl play-pause"
+          ",XF86AudioStop,exec,playerctl stop"
+
+          # Volume
+          ",XF86AudioRaiseVolume,exec,pactl set-sink-volume @DEFAULT_SINK@ +5%"
+          ",XF86AudioLowerVolume,exec,pactl set-sink-volume @DEFAULT_SINK@ -5%"
+
           # Window functions
           "$mod, Q, killactive"
           "$mod, F, fullscreen, 0"

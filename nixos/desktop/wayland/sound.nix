@@ -24,6 +24,7 @@
   environment.systemPackages = with pkgs; [
     goxlr-utility
     pavucontrol
+    pulseaudio
 
     # (alsa-ucm-conf.overrideAttrs (old: {
     #    postFixup = old.postFixup + ''
