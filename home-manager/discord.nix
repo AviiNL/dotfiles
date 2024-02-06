@@ -31,7 +31,7 @@ in {
         --background-floating: #${palette.base00};
         --background-mobile-primary: var(--background-primary);
         --background-mobile-secondary: var(--background-secondary);
-        --background-modifier-selected: var(--background-secondary);
+        --background-modifier-selected: var(--background-primary);
         --scrollbar-thin-thumb: #${palette.base02};
         --scrollbar-auto-thumb: #${palette.base02};
         --scrollbar-auto-track: #${palette.base01};
@@ -222,9 +222,6 @@ in {
     }
     div[class^='folderIconWrapper'] {
       background-color: var(--background-secondary) !important;
-    }
-    li[class^='selected'] {
-      background-color: var(--background-tertiary) !important;
     }
   '';
 }
