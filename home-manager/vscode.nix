@@ -37,12 +37,12 @@
           "Consolas, Symbols Nerd Font Mono, monospace";
         "workbench.statusBar.visible" = true;
         "git.confirmSync" = false;
+        "git.autofetch" = true;
+        "explorer.confirmDragAndDrop" = false;
 
         # Nix IDE
         "nix.enableLanguageServer" = true;
         "nix.serverPath" = "${pkgs.nixd}/bin/nixd";
-        "git.autofetch" = true;
-        "explorer.confirmDragAndDrop" = false;
       };
       keybindings = [
         {

@@ -7,4 +7,5 @@
   # alsa-ucm-conf = pkgs.callPackage ./alsa-ucm-conf { };
 
   nestopia-ue = pkgs.callPackage ./nestopia-ue { };
+  vscode = pkgs.callPackage ./vscode { };
 }

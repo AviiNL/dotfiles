@@ -27,6 +27,14 @@
         } 
         $env.PATH = ($env.PATH | split row (char esep) | prepend /home/myuser/.apps | append /usr/bin/env)
 
+        $env.config.hooks.env_change.PWD = { ||
+          if (which direnv | is-empty) {
+              return
+          }
+
+          direnv export json | from json | default {} | load-env
+        }
+
         def rebuild [profile?: string] {
             let p = if ($profile == null) {
                 (hostname)

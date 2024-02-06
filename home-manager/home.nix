@@ -26,6 +26,7 @@
     # ./chromium.nix
     #./dolphin.nix
     ./nemo.nix
+    ./development.nix
     ./vscode.nix
     ./git.nix
 
