@@ -71,6 +71,7 @@ in {
           "hyprctl dispatch workspace 1"
           "${pkgs.dbus}/bin/dbus-update-activation-environment --systemd --all"
           "goxlr-daemon"
+          "[silent] ulauncher"
           # Startup applications
           "[workspace 2] webcord"
         ];
@@ -84,8 +85,9 @@ in {
           "$mod SHIFT, B, exec, nix-shell -p chromium --command chromium"
 
           # Launcher
-          "$mod, R, exec, ${wofi} -S drun"
-          "$mod SHIFT, R, exec, ${wofi} -S run"
+          # "$mod, R, exec, ${wofi} -S drun"
+          # "$mod SHIFT, R, exec, ${wofi} -S run"
+          "$mod, R, exec, ulauncher-toggle"
 
           # Region Screenshot Clipboard
           '',Print, exec, grim -g "$(slurp -d)" - | wl-copy''
