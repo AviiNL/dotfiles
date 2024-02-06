@@ -4,13 +4,6 @@ let inherit (config.colorscheme) palette;
 in {
   home.packages = with pkgs; [ vesktop webcord-vencord ];
 
-  # this doesnt fix anything either .. >_<
-  # xdg.configFile."vesktop/state.json".text = ''
-  #   {
-  #     "firstLaunch": true
-  #   }
-  # '';
-
   xdg.configFile."WebCord/Themes/nix-colors.css".text = ''
     .theme-dark {
         --header-primary: #${palette.base05};
