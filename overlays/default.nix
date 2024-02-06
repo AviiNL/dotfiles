@@ -20,6 +20,28 @@ in {
       # example = prev.example.overrideAttrs (oldAttrs: rec {
       # ...
       # });
+
+      # nestopia = prev.nestopia.overrideAttrs (oldAttrs: {
+      #   version = "1.52.0";
+      #   src = prev.fetchFromGitHub {
+      #     owner = "0ldsk00l";
+      #     repo = "nestopia";
+      #     rev = "d897bfdc047bf6309b46c12073dd7f0373fb60ba";
+      #     sha256 = "sha256-kd5hZ88fCLL8ysGMj7HsrSA7eCI5SL2xxiRXJiZqBZ8=";
+      #   };
+      #   patches = [ ];
+
+      #   buildPhase = ''
+      #     autoreconf -vif
+      #     ./configure
+      #     make
+      #   '';
+
+      #   installPhase = ''
+      #     mkdir -p $out/{bin,share/nestopia}
+      #     make install PREFIX=$out
+      #   '';
+      # });
     };
 
   # When applied, the unstable nixpkgs set (declared in the flake inputs) will

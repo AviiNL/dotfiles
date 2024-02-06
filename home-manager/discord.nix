@@ -220,8 +220,11 @@ in {
     .theme-dark .header-sJd8D7 {
       color: var(--text-normal)
     }
-    div[class^='folderIconWrapper'], div[class*=' folderIconWrapper']{
+    div[class^='folderIconWrapper'] {
       background-color: var(--background-secondary) !important;
+    }
+    li[class^='selected'] {
+      background-color: var(--background-tertiary) !important;
     }
   '';
 }

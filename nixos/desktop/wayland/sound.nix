@@ -24,8 +24,13 @@
   environment.systemPackages = with pkgs; [
     goxlr-utility
     pavucontrol
-    # alsa-ucm-conf
-    # alsa-ucm-conf-fix
+
+    # (alsa-ucm-conf.overrideAttrs (old: {
+    #    postFixup = old.postFixup + ''
+    #      # patch split.conf here?
+    #    '';
+    #  }))
+
   ];
 
   services.udev.packages = [ pkgs.goxlr-utility ];
