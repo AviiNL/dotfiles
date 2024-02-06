@@ -8,4 +8,5 @@
 
   nestopia-ue = pkgs.callPackage ./nestopia-ue { };
   vscode = pkgs.callPackage ./vscode { };
+  obsidian = pkgs.callPackage ./obsidian { };
 }

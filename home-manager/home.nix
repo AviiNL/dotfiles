@@ -15,35 +15,25 @@
     inputs.nixvim.homeManagerModules.nixvim
 
     # You can also split up your configuration and import pieces of it here:
-    # ./nvim.nix
-    ./font.nix
-    ./gtk.nix
-    ./qt.nix
-
-    ./kitty.nix
-    #./librewolf.nix
-    ./firefox.nix
-    # ./chromium.nix
-    #./dolphin.nix
-    ./nemo.nix
+    ./desktop/wayland
     ./development.nix
-    ./vscode.nix
+    ./discord.nix
+    ./firefox.nix
+    ./font.nix
+    ./gaming.nix
     ./git.nix
-
+    ./gtk.nix
+    ./kitty.nix
     ./krita.nix
-
+    ./nemo.nix
+    ./nushell.nix
+    ./obs.nix
+    ./obsidian.nix
+    ./plex.nix
+    ./qt.nix
     ./remmina.nix
     ./vlc.nix
-    ./plex.nix
-    ./obs.nix
-
-    ./discord.nix
-    ./gaming.nix
-
-    ./nushell.nix
-
-    ./desktop/wayland
-    #./desktop/x11
+    ./vscode.nix
   ];
 
   nixpkgs = {
