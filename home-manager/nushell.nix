@@ -47,6 +47,10 @@
             let cmd = $base + $p
             echo $cmd
             nu -c $cmd
+            if ($env.LAST_EXIT_CODE == 0) {
+              let gen = readlink /nix/var/nix/profiles/system | grep -o "[0-9]*"
+              echo Generation $gen built. | str join ' '
+            }
         }
 
         def killall [name: string, signal?: int] {

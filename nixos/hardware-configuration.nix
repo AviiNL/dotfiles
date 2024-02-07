@@ -11,6 +11,8 @@ let
 in {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
+  # Ok so this goes into initramfs
+  # Which is why it's so huge?
   boot.initrd.availableKernelModules = [
     "vfio_pci"
     "vfio_iommu_type1"
@@ -21,7 +23,8 @@ in {
     "usb_storage"
     "usbhid"
     "sd_mod"
-    "nouveau"
+    "nvidia"
+    "nvidia_modeset"
     "nvidia_drm"
     "nvidia_uvm"
     "v4l2loopback"
@@ -29,7 +32,7 @@ in {
 
   boot.initrd.systemd.enable = true;
   boot.initrd.kernelModules = [
-    # "vfio_pci" # If this and line 44 are enabled, shit hits the fan (graphics output stops working when loading driver)
+    "vfio_pci" # If this and line 47 are enabled, shit hits the fan (graphics output stops working when loading driver)
     "vfio_iommu_type1"
     "vfio"
     "kvm-amd"
@@ -41,9 +44,10 @@ in {
     "v4l2loopback"
   ];
   boot.kernelParams = [
-    #("vfio-pci.ids=" + lib.concatStringsSep "," gpuIDs)
+    # ("vfio-pci.ids=" + lib.concatStringsSep "," gpuIDs)
     "amd_iommu=on"
     "iommu=pt"
+    "pcie_acs_override=downstream,multifunction"
     "modeset=1"
     "fbdev=1"
   ];
@@ -55,6 +59,7 @@ in {
     # card_label: Name of virtual camera, how it'll show up in Skype, Zoom, Teams
     # https://github.com/umlaeute/v4l2loopback
     options v4l2loopback exclusive_caps=1 card_label="Virtual Camera"
+    # options vfio-pci ids=10de:2487,10de:228b # this doesnt make it work either...
   ''; # options kvm_amd nested=1
 
   fileSystems."/" = {

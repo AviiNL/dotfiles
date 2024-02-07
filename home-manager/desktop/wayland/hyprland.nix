@@ -58,6 +58,11 @@ in {
           "DP-2, 2560x1440@165, 0x0, 1"
           "HDMI-A-1, 1920x1080@60, 2560x180, 1"
           "HDMI-A-2, 1920x1080@60, -1920x180, 1"
+
+          # Gaming modus (or something)
+          # "DP-2, 2560x1440@165, 0x0, 1"
+          # "HDMI-A-1, 1920x1080@60, 3560x180, 1"
+          # "HDMI-A-2, 1920x1080@60, -2920x180, 1"
         ];
         workspace = [
           "1,monitor:DP-2,default:true"
@@ -88,6 +93,7 @@ in {
           # "$mod, R, exec, ${wofi} -S drun"
           # "$mod SHIFT, R, exec, ${wofi} -S run"
           "$mod, R, exec, ulauncher-toggle"
+          "$modS SHIFT, R, exec, ulauncher" # incase it crashed or something
 
           # Region Screenshot Clipboard
           '',Print, exec, grim -g "$(slurp -d)" - | wl-copy''
@@ -118,6 +124,10 @@ in {
           "$mod, F, exec, $notifycmd 'Fullscreen Mode'"
           "$mod, Space, togglefloating"
           "$mod, Space, centerwindow"
+
+          # "$mod Control, 1, movecursor, -1960 720"
+          # "$mod Control, 2, movecursor, 1280 720"
+          # "$mod Control, 3, movecursor, 4520 720"
 
           "$mod, Left, movefocus,l"
           "$mod, Right, movefocus,r"
