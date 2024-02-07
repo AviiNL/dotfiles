@@ -32,6 +32,7 @@
     ./plex.nix
     ./qt.nix
     ./remmina.nix
+    ./virtualization.nix
     ./vlc.nix
     ./vscode.nix
   ];

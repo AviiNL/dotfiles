@@ -22,6 +22,7 @@
     ./samba.nix
 
     ./flatpak.nix
+    ./virtualization.nix
     ./gaming.nix
 
     ./desktop/wayland
@@ -95,7 +96,7 @@
   # TODO: Configure your system-wide user settings (groups, etc), add more users as needed.
   users.users.aviinl = {
     description = "AviiNL";
-    extraGroups = [ "wheel" ];
+    extraGroups = [ "wheel" "libvirtd" ];
     isNormalUser = true;
     shell = pkgs.nushell; # has config
   };

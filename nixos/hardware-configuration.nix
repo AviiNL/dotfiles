@@ -2,11 +2,19 @@
 # and may be overwritten by future invocations.  Please make changes
 # to /etc/nixos/configuration.nix instead.
 { config, lib, pkgs, modulesPath, ... }:
-
-{
+let
+  # RTX 3070 Ti
+  gpuIDs = [ # add 1tb nvme to this list? its ntfs anyway
+    "10de:2487" # Graphics
+    "10de:228b" # Audio
+  ];
+in {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
   boot.initrd.availableKernelModules = [
+    "vfio_pci"
+    "vfio_iommu_type1"
+    "vfio"
     "nvme"
     "ahci"
     "xhci_pci"
@@ -15,13 +23,31 @@
     "sd_mod"
     "nouveau"
     "nvidia_drm"
+    "nvidia_uvm"
     "v4l2loopback"
   ];
 
-  boot.initrd.kernelModules = [ "dm-snapshot" ];
   boot.initrd.systemd.enable = true;
-  boot.kernelModules = [ "kvm-amd" "nvidia_drm" "v4l2loopback" ];
-  boot.kernelParams = [ "modeset=1" "fbdev=1" ];
+  boot.initrd.kernelModules = [
+    # "vfio_pci" # If this and line 44 are enabled, shit hits the fan (graphics output stops working when loading driver)
+    "vfio_iommu_type1"
+    "vfio"
+    "kvm-amd"
+    "dm-snapshot"
+    "nvidia"
+    "nvidia_modeset"
+    "nvidia_drm"
+    "nvidia_uvm"
+    "v4l2loopback"
+  ];
+  boot.kernelParams = [
+    #("vfio-pci.ids=" + lib.concatStringsSep "," gpuIDs)
+    "vfio-pci.ids=10de:2487,10de:228b"
+    "amd_iommu=on"
+    "iommu=pt"
+    "modeset=1"
+    "fbdev=1"
+  ];
   boot.extraModulePackages = [ config.boot.kernelPackages.v4l2loopback.out ];
 
   # Set initial kernel module settings
@@ -30,7 +56,7 @@
     # card_label: Name of virtual camera, how it'll show up in Skype, Zoom, Teams
     # https://github.com/umlaeute/v4l2loopback
     options v4l2loopback exclusive_caps=1 card_label="Virtual Camera"
-  '';
+  ''; # options kvm_amd nested=1
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/fc3ef879-fb4f-45bb-9d8e-d7e581f39f1c";
