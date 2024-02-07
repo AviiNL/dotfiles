@@ -67,7 +67,7 @@ in {
           ++ (lib.optionals hasHyprland [
             "hyprland/workspaces"
             "hyprland/submap"
-          ]) ++ [ "custom/currentplayer" "custom/player" ];
+          ]) ++ [ "custom/currentplayer" "custom/title" ];
 
         modules-center = [
           # "cpu"
@@ -222,6 +222,13 @@ in {
           };
           on-click = "${playerctld} shift";
           on-click-right = "${playerctld} unshift";
+        };
+        "custom/title" = {
+          interval = 2;
+          exec = jsonOutput "custom/title" {
+            text = "$(${hyprland}/bin/hyprctl activewindow -j | jq -r .title)";
+          };
+          return-type = "json";
         };
         "custom/player" = {
           exec-if = "${playerctl} status 2>/dev/null";

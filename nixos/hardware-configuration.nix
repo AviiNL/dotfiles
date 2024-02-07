@@ -32,7 +32,7 @@ in {
 
   boot.initrd.systemd.enable = true;
   boot.initrd.kernelModules = [
-    "vfio_pci" # If this and line 47 are enabled, shit hits the fan (graphics output stops working when loading driver)
+    "vfio_pci" # If this and line 47 (or 62) are enabled, shit hits the fan (graphics output stops working when loading driver)
     "vfio_iommu_type1"
     "vfio"
     "kvm-amd"

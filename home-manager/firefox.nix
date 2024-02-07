@@ -1,12 +1,70 @@
 { inputs, outputs, lib, config, pkgs, ... }: {
 
+  /* [x] betterttv
+     [x] browserpass
+     [ ] DocsAfterDark
+     [x] enhancer-for-youtube
+     [ ] Minecraft wiki redirector
+     [x] return-youtube-dislikes
+     [x] sponsorblock
+     [x] stylus
+     [x] ublock-origin
+     [ ] video scrubber for instagram
+     [ ] youtube volume scroll
+  */
+
+  # this shit doesnt work.. still cant install bttv, nor enhancer-for-youtube
+  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowUnfreePredicate = pkg:
+    builtins.elem (lib.getName pkg) [
+      "betterttv-7.5.15"
+      "enhancer-for-youtube-2.0.121"
+    ];
+
   programs.browserpass.enable = true;
   programs.firefox = {
     enable = true;
+
+    policies = {
+      "SearchEngines" = [{
+        "Default" = "DuckDuckGo";
+        "Remove" = [ "Amazon.com" "Bing" "eBay" "Wikipedia (en)" ];
+      }];
+      "EnableTrackingProtection" = {
+        "Value" = true;
+        "Cryptomining" = true;
+        "Fingerprinting" = true;
+        "Locked" = false;
+      };
+      "FirefoxHome" = {
+        "SponsoredTopSites" = false;
+        "SponsoredPocket" = false;
+        "Locked" = false;
+      };
+      "Preferences" = {
+        "dom.security.https_only_mode" = {
+          "Value" = true;
+          "Status" = "default";
+        };
+        "browser.newtabpage.pinned" = {
+          "Value" = "";
+          "Status" = "default";
+        };
+      };
+      "DisablePocket" = true;
+      "DisableTelemetry" = true;
+      "DisableFirefoxStudies" = true;
+      "DontCheckDefaultBrowser" = "true";
+    };
     profiles.aviinl = {
       extensions = with inputs.firefox-addons.packages.${pkgs.system}; [
-        ublock-origin
+        # betterttv
         browserpass
+        # enhancer-for-youtube
+        return-youtube-dislikes
+        sponsorblock
+        stylus
+        ublock-origin
       ];
       search = {
         default = "DuckDuckGo";
@@ -21,7 +79,7 @@
         "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
         "browser.newtabpage.activity-stream.improvesearch.topSiteSearchShortcuts.havePinned" =
           "";
-        "browser.newtabpage.pinned" = "[]";
+        "browser.newtabpage.pinned" = "";
         "browser.shell.checkDefaultBrowser" = false;
         "browser.shell.defaultBrowserCheckCount" = 1;
         "browser.uiCustomization.state" = ''
