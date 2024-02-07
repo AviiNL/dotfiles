@@ -42,7 +42,6 @@ in {
   ];
   boot.kernelParams = [
     #("vfio-pci.ids=" + lib.concatStringsSep "," gpuIDs)
-    "vfio-pci.ids=10de:2487,10de:228b"
     "amd_iommu=on"
     "iommu=pt"
     "modeset=1"
