@@ -108,6 +108,10 @@ in {
           ''
             SHIFT CTRL,Print, exec, grim -g "$(hyprctl activewindow -j | jq -r '.at | join(",")') $(hyprctl activewindow -j | jq -r '.size | join("x")')" - | swappy -f -''
 
+          # Fullscreen screenshot
+          "$mod, Print, exec, grim - | wl-copy"
+          "SHIFT $mod, Print, exec, grim - | swappy -f -"
+
           # Media
           ",XF86AudioNext,exec,playerctl next"
           ",XF86AudioPrev,exec,playerctl previous"
@@ -124,6 +128,8 @@ in {
           "$mod, F, exec, $notifycmd 'Fullscreen Mode'"
           "$mod, Space, togglefloating"
           "$mod, Space, centerwindow"
+
+          "$mod, H, movetoworkspace, special"
 
           # "$mod Control, 1, movecursor, -1960 720"
           # "$mod Control, 2, movecursor, 1280 720"

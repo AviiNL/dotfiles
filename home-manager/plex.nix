@@ -1,3 +1,3 @@
 { config, lib, pkgs, ... }: {
-  home.packages = with pkgs; [ plex-media-player ];
+  home.packages = with pkgs; [ plex-media-player plexamp ];
 }

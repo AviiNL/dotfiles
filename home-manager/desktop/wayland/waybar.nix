@@ -67,30 +67,20 @@ in {
           ++ (lib.optionals hasHyprland [
             "hyprland/workspaces"
             "hyprland/submap"
-          ]) ++ [ "custom/currentplayer" "custom/title" ];
+          ]) ++ [ "custom/title" ];
 
-        modules-center = [
-          # "cpu"
-          # "custom/gpu"
-          # "memory"
-          "clock"
-          # "pulseaudio"
-          # "battery"
-          # "custom/unread-mail"
-          #"custom/gpg-agent"
-        ];
+        modules-center = [ "clock" ];
 
         modules-right = [
-          # "custom/gammastep" TODO: currently broken for some reason
-          # "custom/tailscale-ping"
+          "custom/player"
+          "custom/currentplayer"
+
           "pulseaudio"
 
           "cpu"
           "temperature"
           "custom/gpu"
           "memory"
-
-          # "battery"
 
           "network"
           "tray"
@@ -243,7 +233,7 @@ in {
           return-type = "json";
           interval = 2;
           max-length = 80;
-          format = "{icon} {}";
+          format = "{} {icon}";
           format-icons = {
             "Playing" = "󰐊";
             "Paused" = "󰏤 ";

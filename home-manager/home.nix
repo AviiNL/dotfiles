@@ -14,6 +14,8 @@
     inputs.nix-colors.homeManagerModules.default
     inputs.nixvim.homeManagerModules.nixvim
 
+    ./nixvim
+
     # You can also split up your configuration and import pieces of it here:
     ./desktop/wayland
     ./development.nix
@@ -32,6 +34,7 @@
     ./plex.nix
     ./qt.nix
     ./remmina.nix
+    ./termtools.nix
     ./virtualization.nix
     ./vlc.nix
     ./vscode.nix
@@ -77,11 +80,6 @@
   # Enable home-manager and git
   programs.home-manager.enable = true;
   programs.git.enable = true;
-  programs.nixvim = {
-    enable = true;
-    extraPlugins = with pkgs.vimPlugins; [ plenary-nvim ];
-    package = pkgs.neovim-nightly;
-  };
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
