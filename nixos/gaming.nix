@@ -10,7 +10,14 @@
     # };
   };
 
+  programs.gamescope = {
+    enable = true;
+    args = [ "--rt" ];
+  };
+
   environment.systemPackages = with pkgs; [
+    modrinth-app
+    # minecraft
     protontricks
     winetricks
     steam-run

@@ -1,7 +1,7 @@
 { inputs, outputs, config, pkgs, ... }: {
   home.packages = with pkgs; [
-    inputs.nix-gaming.packages.${pkgs.hostPlatform.system}.wine-ge
-    inputs.nix-gaming.packages.${pkgs.hostPlatform.system}.star-citizen
+    inputs.nix-gaming.packages.${system}.wine-ge
+    inputs.nix-citizen.packages.${system}.star-citizen
     winetricks
     nestopia-ue
     # (retroarch.override {

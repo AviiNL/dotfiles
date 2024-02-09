@@ -18,6 +18,7 @@
 
     # You can also split up your configuration and import pieces of it here:
     ./desktop/wayland
+    #./desktop/x11
     ./development.nix
     ./discord.nix
     ./firefox.nix

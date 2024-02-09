@@ -16,6 +16,7 @@
     };
   };
 
+  # c0d9dcc586ab17bf67c48c02a08bca28727f9237
   programs.hyprland = {
     enable = true;
     package = inputs.hyprland.packages.${pkgs.system}.hyprland;

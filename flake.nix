@@ -45,6 +45,11 @@
       url = "github:fufexan/nix-gaming";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nix-citizen = {
+      url = "github:LovingMelody/nix-citizen";
+      inputs.nix-gaming.follows = "nix-gaming";
+    };
   };
 
   outputs = { self, nixpkgs, home-manager, hyprland, ... }@inputs:

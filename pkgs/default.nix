@@ -10,4 +10,8 @@
   vscode = pkgs.callPackage ./vscode { };
   obsidian = pkgs.callPackage ./obsidian { };
   webcord-vencord = pkgs.callPackage ./webcord-vencord { };
+  openvr = pkgs.callPackage ./openvr { };
+  gamescope = pkgs.callPackage ./gamescope { };
+  modrinth-app = pkgs.callPackage ./modrinth-app { };
+  minecraft = pkgs.callPackage ./minecraft { };
 }

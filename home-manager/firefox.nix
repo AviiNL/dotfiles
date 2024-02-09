@@ -14,12 +14,12 @@
   */
 
   # this shit doesnt work.. still cant install bttv, nor enhancer-for-youtube
-  nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.allowUnfreePredicate = pkg:
-    builtins.elem (lib.getName pkg) [
-      "betterttv-7.5.15"
-      "enhancer-for-youtube-2.0.121"
-    ];
+  # nixpkgs.config.allowUnfree = true;
+  # nixpkgs.config.allowUnfreePredicate = pkg:
+  #   builtins.elem (lib.getName pkg) [
+  #     "betterttv-7.5.15"
+  #     "enhancer-for-youtube-2.0.121"
+  #   ];
 
   programs.browserpass.enable = true;
   programs.firefox = {

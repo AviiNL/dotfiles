@@ -18,6 +18,7 @@ in {
     pkgs.jq
     pkgs.swww
     pkgs.wl-color-picker
+    pkgs.xorg.xrandr
   ];
 
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-wlr ];
@@ -56,8 +57,11 @@ in {
         windowrulev2 = [ "idleinhibit fullscreen, class:^(librewolf)$" ];
         monitor = [
           "DP-2, 2560x1440@165, 0x0, 1"
+          #"HDMI-A-1, disable"
+          #"HDMI-A-2, disable"
+
           "HDMI-A-1, 1920x1080@60, 2560x180, 1"
-          "HDMI-A-2, 1920x1080@60, -1921x180, 1"
+          "HDMI-A-2, 1920x1080@60, -1920x180, 1"
 
           # Gaming modus (or something)
           # "DP-2, 2560x1440@165, 0x0, 1"
@@ -66,11 +70,12 @@ in {
         ];
         workspace = [
           "1,monitor:DP-2,default:true"
-          "2,monitor:HDMI-A-1,default:true"
-          "3,monitor:HDMI-A-2,default:true"
+          "2,monitor:HDMI-A-1,default:false"
+          "3,monitor:HDMI-A-2,default:false"
         ];
         exec-once = [
           # Background processes
+          "xrandr --output DP-2 --primary --preferred"
           "swww init"
           "swww img ~/Pictures/mario.gif"
           "hyprctl dispatch workspace 1"

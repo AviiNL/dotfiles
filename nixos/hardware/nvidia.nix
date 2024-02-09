@@ -22,6 +22,11 @@
     "fbdev=1"
   ];
 
+  boot.kernel.sysctl = {
+    "vm.max_map_count" = 16777216;
+    "fs.file-max" = 524288;
+  };
+
   services.xserver = { videoDrivers = [ "nvidia" ]; };
 
   hardware = {
@@ -34,7 +39,9 @@
         vaapiVdpau
         libvdpau-va-gl
         nvidia-vaapi-driver
+        libGL
       ];
+      setLdLibraryPath = true;
     };
     nvidia = {
       open = false;
