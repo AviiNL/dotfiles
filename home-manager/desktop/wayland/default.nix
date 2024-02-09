@@ -4,5 +4,6 @@
     ./waybar.nix
     #./wofi.nix
     ./ulauncher.nix
+    ./wlogout.nix
   ];
 }

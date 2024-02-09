@@ -15,6 +15,7 @@ let
 
   jq = "${pkgs.jq}/bin/jq";
   systemctl = "${pkgs.systemd}/bin/systemctl";
+  wlogout = "${pkgs.wlogout}/bin/wlogout";
   journalctl = "${pkgs.systemd}/bin/journalctl";
   playerctl = "${pkgs.playerctl}/bin/playerctl";
   playerctld = "${pkgs.playerctl}/bin/playerctld";
@@ -178,7 +179,8 @@ in {
         };
         "custom/hostname" = {
           exec = "echo $USER@$HOSTNAME";
-          on-click = "${systemctl} --user restart waybar";
+          on-click = "${wlogout} -p layer-shell";
+          on-click-right = "${systemctl} --user restart waybar";
         };
         "custom/currentplayer" = {
           interval = 2;
@@ -288,13 +290,13 @@ in {
       }
       #workspaces button.focused,
       #workspaces button.active {
-        background-color: #${palette.base0A};
+        background-color: #${palette.base0B};
         color: #${palette.base00};
       }
 
       #clock {
         background-color: #${palette.base01};
-        color: #${palette.base0A};
+        color: #${palette.base0B};
         padding-right: 1em;
         padding-left: 1em;
         border-radius: 0.5em;

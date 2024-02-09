@@ -1,0 +1,13 @@
+diff --git a/sources/code/main/modules/extensions.ts b/sources/code/main/modules/extensions.ts
+index a1a5489..c7adc67 100644
+--- a/sources/code/main/modules/extensions.ts
++++ b/sources/code/main/modules/extensions.ts
+@@ -157,7 +157,7 @@ async function loadStyles(webContents:Electron.WebContents) {
+       }).catch(reason => reject(reason as Error));
+   });
+   watch(stylesDir).once("change", () => {
+-    webContents.reload();
++    // webContents.reload();
+   });
+   callback().catch(commonCatches.print);
+ }

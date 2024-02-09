@@ -9,38 +9,35 @@ let
     "10de:228b" # Audio
   ];
 in {
-  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
+  imports = [
+    (modulesPath + "/installer/scan/not-detected.nix")
+    ./hardware/filesystem.nix
+    ./hardware/nvidia.nix
+  ];
+
+  boot.initrd.systemd.enable = true;
 
   # Ok so this goes into initramfs
   # Which is why it's so huge?
   boot.initrd.availableKernelModules = [
-    "vfio_pci"
-    "vfio_iommu_type1"
-    "vfio"
+    #"vfio_pci"
+    #"vfio_iommu_type1"
+    #"vfio"
     "nvme"
     "ahci"
     "xhci_pci"
     "usb_storage"
     "usbhid"
     "sd_mod"
-    "nvidia"
-    "nvidia_modeset"
-    "nvidia_drm"
-    "nvidia_uvm"
     "v4l2loopback"
   ];
 
-  boot.initrd.systemd.enable = true;
   boot.initrd.kernelModules = [
-    "vfio_pci" # If this and line 47 (or 62) are enabled, shit hits the fan (graphics output stops working when loading driver)
-    "vfio_iommu_type1"
-    "vfio"
+    #"vfio_pci" # If this and line 47 (or 62) are enabled, shit hits the fan (graphics output stops working when loading driver)
+    #"vfio_iommu_type1"
+    #"vfio"
     "kvm-amd"
     "dm-snapshot"
-    "nvidia"
-    "nvidia_modeset"
-    "nvidia_drm"
-    "nvidia_uvm"
     "v4l2loopback"
   ];
   boot.kernelParams = [
@@ -48,8 +45,6 @@ in {
     "amd_iommu=on"
     "iommu=pt"
     "pcie_acs_override=downstream,multifunction"
-    "modeset=1"
-    "fbdev=1"
   ];
   boot.extraModulePackages = [ config.boot.kernelPackages.v4l2loopback.out ];
 
@@ -62,76 +57,14 @@ in {
     # options vfio-pci ids=10de:2487,10de:228b # this doesnt make it work either...
   ''; # options kvm_amd nested=1
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/fc3ef879-fb4f-45bb-9d8e-d7e581f39f1c";
-    fsType = "btrfs";
-    options = [ "subvol=root" "noatime" "compress=zstd" ];
-  };
-
-  fileSystems."/home" = {
-    device = "/dev/disk/by-uuid/fc3ef879-fb4f-45bb-9d8e-d7e581f39f1c";
-    fsType = "btrfs";
-    options = [ "subvol=home" "noatime" "compress=zstd" ];
-  };
-
-  fileSystems."/nix" = {
-    device = "/dev/disk/by-uuid/fc3ef879-fb4f-45bb-9d8e-d7e581f39f1c";
-    fsType = "btrfs";
-    options = [ "subvol=nix" "noatime" "compress=zstd" ];
-  };
-
-  fileSystems."/persist" = {
-    device = "/dev/disk/by-uuid/fc3ef879-fb4f-45bb-9d8e-d7e581f39f1c";
-    fsType = "btrfs";
-    options = [ "subvol=persist" "noatime" "compress=zstd" ];
-  };
-
-  fileSystems."/var/log" = {
-    device = "/dev/disk/by-uuid/fc3ef879-fb4f-45bb-9d8e-d7e581f39f1c";
-    fsType = "btrfs";
-    options = [ "subvol=log" "noatime" "compress=zstd" ];
-  };
-
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/F1FE-7E94";
-    fsType = "vfat";
-  };
-
-  swapDevices =
-    [{ device = "/dev/disk/by-uuid/66973f9c-d320-485a-8109-23f158b15016"; }];
-
   hardware = {
     cpu.amd.updateMicrocode =
       lib.mkDefault config.hardware.enableRedistributableFirmware;
-    opengl = {
-      enable = true;
-      driSupport = true;
-      driSupport32Bit = true;
-      extraPackages = with pkgs; [
-        vaapiVdpau
-        libvdpau-va-gl
-        nvidia-vaapi-driver
-      ];
-    };
-    nvidia = {
-      open = false;
-      modesetting.enable = true;
-      nvidiaSettings = true;
-
-      package = config.boot.kernelPackages.nvidiaPackages.production;
-
-      powerManagement = {
-        enable = false;
-        finegrained = false;
-      };
-    };
     opentabletdriver = {
       enable = true;
       daemon.enable = true;
     };
   };
-
-  services.xserver = { videoDrivers = [ "nvidia" ]; };
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
