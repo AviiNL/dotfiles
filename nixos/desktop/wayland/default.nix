@@ -1,5 +1,4 @@
 { inputs, outputs, config, lib, pkgs, ... }: {
-  imports = [ ./sound.nix ];
 
   # Needed for xwayland
   services.xserver.enable = true;

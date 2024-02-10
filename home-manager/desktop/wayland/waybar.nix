@@ -218,7 +218,8 @@ in {
         "custom/title" = {
           interval = 2;
           exec = jsonOutput "custom/title" {
-            text = "$(${hyprland}/bin/hyprctl activewindow -j | jq -r .title)";
+            text =
+              "$(${hyprland}/bin/hyprctl activewindow -j | jq -r .title | jq -sRr @html)";
           };
           return-type = "json";
         };

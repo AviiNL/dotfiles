@@ -91,8 +91,10 @@
         mars = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs outputs; };
           modules = [
+            ./modules/nixos
             # > Our main nixos configuration file <
             ./nixos/configuration.nix
+
           ];
         };
       };

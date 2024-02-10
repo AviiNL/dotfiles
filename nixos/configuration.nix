@@ -100,7 +100,7 @@
   # TODO: Configure your system-wide user settings (groups, etc), add more users as needed.
   users.users.aviinl = {
     description = "AviiNL";
-    extraGroups = [ "wheel" "libvirtd" ];
+    extraGroups = [ "wheel" "libvirtd" "plugdev" ];
     isNormalUser = true;
     shell = pkgs.nushell; # has config
   };

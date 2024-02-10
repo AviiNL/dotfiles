@@ -76,11 +76,9 @@ in {
           # Background processes
           # "xrandr --output DP-2 --primary --preferred"
           "hyprctl setcursor Simp1e-Adw-Dark 1"
-          "swww init"
-          "swww img ~/Pictures/mario.gif"
+          "swww init ; sleep 1 ; swww img ~/Pictures/mario.gif"
           "hyprctl dispatch workspace 1"
           "${pkgs.dbus}/bin/dbus-update-activation-environment --systemd --all"
-          "goxlr-daemon"
           "[silent] ulauncher"
           # Startup applications
           "[workspace 2] webcord"

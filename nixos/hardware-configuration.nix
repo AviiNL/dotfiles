@@ -9,11 +9,7 @@ let
     "10de:228b" # Audio
   ];
 in {
-  imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
-    ./hardware/filesystem.nix
-    ./hardware/nvidia.nix
-  ];
+  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ./hardware ];
 
   boot.initrd.availableKernelModules =
     [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
