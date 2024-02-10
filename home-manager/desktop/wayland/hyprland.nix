@@ -1,10 +1,7 @@
 { inputs, outputs, config, pkgs, ... }:
 let wofi = "${config.programs.wofi.package}/bin/wofi";
 in {
-  imports = [
-    inputs.nix-colors.homeManagerModule
-    inputs.hyprland.homeManagerModules.default
-  ];
+  imports = [ inputs.hyprland.homeManagerModules.default ];
 
   home.packages = [
     inputs.hyprland-contrib.packages.${pkgs.system}.grimblast

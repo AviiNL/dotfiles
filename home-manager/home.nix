@@ -5,20 +5,14 @@
   colorscheme = inputs.nix-colors.colorSchemes.vice;
 
   imports = [
-    ./desktop/xdg.nix
-    # If you want to use modules your own flake exports (from modules/home-manager):
-    # outputs.homeManagerModules.example
     outputs.homeManagerModules.fonts
-
-    # Or modules exported from other flakes (such as nix-colors):
     inputs.nix-colors.homeManagerModules.default
     inputs.nixvim.homeManagerModules.nixvim
 
+    ./desktop
     ./nixvim
 
     # You can also split up your configuration and import pieces of it here:
-    ./desktop/wayland
-    #./desktop/x11
     ./development.nix
     ./discord.nix
     ./firefox.nix

@@ -25,8 +25,7 @@
     ./virtualization.nix
     ./gaming.nix
 
-    ./desktop/wayland
-    #./desktop/x11
+    ./desktop
   ];
 
   networking.hostName = "mars";
