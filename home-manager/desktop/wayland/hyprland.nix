@@ -50,11 +50,10 @@ in {
             "rgba(${config.colorscheme.palette.base02}80)";
         };
         decoration = { rounding = 5; };
-        misc = {
-          vrr = 2;
-          disable_hyprland_logo = 1;
-        };
-        windowrulev2 = [ "idleinhibit fullscreen, class:^(librewolf)$" ];
+        # misc = {
+        #   vrr = 0;
+        #   disable_hyprland_logo = 1;
+        # };
         monitor = [
           "DP-2, 2560x1440@165, 0x0, 1"
           #"HDMI-A-1, disable"
@@ -75,7 +74,8 @@ in {
         ];
         exec-once = [
           # Background processes
-          "xrandr --output DP-2 --primary --preferred"
+          # "xrandr --output DP-2 --primary --preferred"
+          "hyprctl setcursor Simp1e-Adw-Dark 1"
           "swww init"
           "swww img ~/Pictures/mario.gif"
           "hyprctl dispatch workspace 1"

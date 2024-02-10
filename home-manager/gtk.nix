@@ -17,6 +17,10 @@ in rec {
       name = "Papirus";
       package = pkgs.papirus-icon-theme;
     };
+    cursorTheme = {
+      name = "Simp1e-Adw-Dark";
+      package = pkgs.simp1e-cursors;
+    };
   };
 
   services.xsettingsd = {

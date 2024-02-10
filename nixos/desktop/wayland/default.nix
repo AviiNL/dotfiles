@@ -1,7 +1,8 @@
 { inputs, outputs, config, lib, pkgs, ... }: {
   imports = [ ./sound.nix ];
 
-  # services.xserver.enable = true;
+  # Needed for xwayland
+  services.xserver.enable = true;
   # services.xserver.wacom.enable = true;
   # services.xserver.displayManager.gdm.enable = true;
 
@@ -22,6 +23,7 @@
     package = inputs.hyprland.packages.${pkgs.system}.hyprland;
     portalPackage =
       inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
+    xwayland.enable = true;
   };
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1";

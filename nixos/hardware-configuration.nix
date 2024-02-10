@@ -15,47 +15,53 @@ in {
     ./hardware/nvidia.nix
   ];
 
+  boot.initrd.availableKernelModules =
+    [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
+  boot.initrd.kernelModules = [ ];
+  boot.kernelModules = [ "kvm-amd" ];
+  boot.extraModulePackages = [ ];
+
   boot.initrd.systemd.enable = true;
 
-  # Ok so this goes into initramfs
-  # Which is why it's so huge?
-  boot.initrd.availableKernelModules = [
-    #"vfio_pci"
-    #"vfio_iommu_type1"
-    #"vfio"
-    "nvme"
-    "ahci"
-    "xhci_pci"
-    "usb_storage"
-    "usbhid"
-    "sd_mod"
-    "v4l2loopback"
-  ];
+  # # Ok so this goes into initramfs
+  # # Which is why it's so huge?
+  # boot.initrd.availableKernelModules = [
+  #   #"vfio_pci"
+  #   #"vfio_iommu_type1"
+  #   #"vfio"
+  #   "nvme"
+  #   "ahci"
+  #   "xhci_pci"
+  #   "usb_storage"
+  #   "usbhid"
+  #   "sd_mod"
+  #   "v4l2loopback"
+  # ];
 
-  boot.initrd.kernelModules = [
-    #"vfio_pci" # If this and line 47 (or 62) are enabled, shit hits the fan (graphics output stops working when loading driver)
-    #"vfio_iommu_type1"
-    #"vfio"
-    "kvm-amd"
-    "dm-snapshot"
-    "v4l2loopback"
-  ];
-  boot.kernelParams = [
-    # ("vfio-pci.ids=" + lib.concatStringsSep "," gpuIDs)
-    "amd_iommu=on"
-    "iommu=pt"
-    "pcie_acs_override=downstream,multifunction"
-  ];
-  boot.extraModulePackages = [ config.boot.kernelPackages.v4l2loopback.out ];
+  # boot.initrd.kernelModules = [
+  #   #"vfio_pci" # If this and line 47 (or 62) are enabled, shit hits the fan (graphics output stops working when loading driver)
+  #   #"vfio_iommu_type1"
+  #   #"vfio"
+  #   "kvm-amd"
+  #   "dm-snapshot"
+  #   "v4l2loopback"
+  # ];
+  # boot.kernelParams = [
+  #   # ("vfio-pci.ids=" + lib.concatStringsSep "," gpuIDs)
+  #   #"amd_iommu=on"
+  #   #"iommu=pt"
+  #   "pcie_acs_override=downstream,multifunction"
+  # ];
+  # boot.extraModulePackages = [ config.boot.kernelPackages.v4l2loopback.out ];
 
-  # Set initial kernel module settings
-  boot.extraModprobeConfig = ''
-    # exclusive_caps: Skype, Zoom, Teams etc. will only show device when actually streaming
-    # card_label: Name of virtual camera, how it'll show up in Skype, Zoom, Teams
-    # https://github.com/umlaeute/v4l2loopback
-    options v4l2loopback exclusive_caps=1 card_label="Virtual Camera"
-    # options vfio-pci ids=10de:2487,10de:228b # this doesnt make it work either...
-  ''; # options kvm_amd nested=1
+  # # Set initial kernel module settings
+  # boot.extraModprobeConfig = ''
+  #   # exclusive_caps: Skype, Zoom, Teams etc. will only show device when actually streaming
+  #   # card_label: Name of virtual camera, how it'll show up in Skype, Zoom, Teams
+  #   # https://github.com/umlaeute/v4l2loopback
+  #   options v4l2loopback exclusive_caps=1 card_label="Virtual Camera"
+  #   # options vfio-pci ids=10de:2487,10de:228b # this doesnt make it work either...
+  # ''; # options kvm_amd nested=1
 
   hardware = {
     cpu.amd.updateMicrocode =
