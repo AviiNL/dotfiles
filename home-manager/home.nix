@@ -2,7 +2,7 @@
 # Use this to configure your home environment (it replaces ~/.config/nixpkgs/home.nix)
 { inputs, outputs, lib, config, pkgs, ... }: {
   # You can import other home-manager modules here
-  colorscheme = inputs.nix-colors.colorSchemes.vice;
+  colorscheme = inputs.nix-colors.colorSchemes.twilight;
 
   imports = [
     outputs.homeManagerModules.fonts
@@ -11,6 +11,8 @@
     inputs.nix-colors.homeManagerModules.default
     inputs.nixvim.homeManagerModules.nixvim
 
+    ./font.nix
+
     ./desktop
     ./nixvim
 
@@ -18,7 +20,6 @@
     ./development.nix
     ./discord.nix
     ./firefox.nix
-    ./font.nix
     ./gaming.nix
     ./git.nix
     ./gtk.nix
@@ -72,7 +73,7 @@
 
   # TODO: Add stuff for your user as you see fit:
   # programs.neovim.enable = true;
-  home.packages = with pkgs; [ fastfetch unzip ];
+  home.packages = with pkgs; [ fastfetch unzip inxi dconf ];
 
   # Enable home-manager and git
   programs.home-manager.enable = true;

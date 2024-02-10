@@ -60,6 +60,10 @@
     config = {
       # Disable if you don't want unfree packages
       allowUnfree = true;
+      permittedInsecurePackages = [
+        "openssl-1.1.1w"
+        # ..
+      ];
     };
   };
 
@@ -119,6 +123,14 @@
   };
 
   security.sudo.wheelNeedsPassword = false;
+  security.polkit.enable = true;
+  security.pam.services.swaylock = { };
+  security.pam.loginLimits = [{
+    domain = "@users";
+    item = "rtprio";
+    type = "-";
+    value = 1;
+  }];
 
   # This setups a SSH server. Very important if you're setting up a headless system.
   # Feel free to remove if you don't need it.

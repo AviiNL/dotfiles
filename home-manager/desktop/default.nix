@@ -1,6 +1,8 @@
 {
   imports = [
     ./xdg.nix
-    # ./wayland
+    # ./hyprland
+    # ./gnome
+    ./sway
   ];
 }

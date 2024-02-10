@@ -12,7 +12,7 @@
   };
 
   environment.systemPackages = with pkgs; [
-    # modrinth-app
+    modrinth-app
     # minecraft
     protontricks
     winetricks
