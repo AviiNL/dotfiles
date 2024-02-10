@@ -24,7 +24,7 @@ let
 
   sha256 = {
     x86_64-linux =
-      "sha256-i8eLGs3ucsi/seeDX7zgnRizrwu63Edu9PQy0yBk02M="; # 1vdgc4mnysij2sf87d5dfh0yw9j2a58lvmnwzzsj1icaydhkhfjy
+      "sha256-joPyv5uhSBRy7C9x5jUuIU7NnK3zhoj18TaGinv6zlk="; # 1vdgc4mnysij2sf87d5dfh0yw9j2a58lvmnwzzsj1icaydhkhfjy
     x86_64-darwin = ""; # 0zxky35ifgjwb6p41mi3z34fvn49fpl09r1n9kp46ip8mqsm7gm7
     aarch64-linux = ""; # 0qv0gbkfx78a393x44g6zmi5gs57d2cnjqlwfv0yrhkgi5s8v1ma
     aarch64-darwin = ""; # 1rl4256h8i52akzy8g2bkydsi5llp05qqj0jr2di896x4niw57iz
@@ -33,7 +33,7 @@ let
 in callPackage ./generic.nix rec {
   # Please backport all compatible updates to the stable release.
   # This is important for the extension ecosystem.
-  version = "1.86.0";
+  version = "1.86.1";
   pname = "vscode" + lib.optionalString isInsiders "-insiders";
 
   # This is used for VS Code - Remote SSH test

@@ -39,6 +39,7 @@
         "git.confirmSync" = false;
         "git.autofetch" = true;
         "explorer.confirmDragAndDrop" = false;
+        "workbench.tree.enableStickyScroll" = false;
 
         # Nix IDE
         "nix.enableLanguageServer" = true;
