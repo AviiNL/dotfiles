@@ -60,10 +60,6 @@
     config = {
       # Disable if you don't want unfree packages
       allowUnfree = true;
-
-      # FIXME: Required for modrinth, remove when no longer required
-      permittedInsecurePackages = [ "openssl-1.1.1w" ];
-
     };
   };
 

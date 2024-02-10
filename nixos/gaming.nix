@@ -1,14 +1,7 @@
 { config, lib, pkgs, ... }: {
   imports = [ ./steam-compat.nix ];
 
-  programs.steam = {
-    enable = true;
-    # gamescopeSession = { enable = true; };
-    # extraCompatPackages = [ pkgs.proton-ge ];
-    # package = pkgs.steam.override {
-    #   # extraPkgs = [ pkgs.bumblebee pkgs.glxinfo pkgs.protontricks ];
-    # };
-  };
+  programs.steam = { enable = true; };
 
   programs.gamescope = { enable = true; };
 
@@ -20,7 +13,7 @@
 
   environment.systemPackages = with pkgs; [
     # modrinth-app
-    minecraft
+    # minecraft
     protontricks
     winetricks
     steam-run

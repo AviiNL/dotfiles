@@ -1,7 +1,7 @@
 { config, lib, ... }:
 let cfg = config.custom.software.kitty;
 in {
-  options.software.kitty = {
+  options.custom.software.kitty = {
     enable = lib.mkEnableOption "kitty";
 
     # ...
