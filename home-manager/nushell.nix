@@ -46,6 +46,7 @@
             let base = "sudo nixos-rebuild switch --option eval-cache false --cores 10 --max-jobs 2 --flake ~/dotfiles#"
             let cmd = $base + $p
             echo $cmd
+            rm --force /home/aviinl/.gtkrc-2.0
             nu -c $cmd
             if ($env.LAST_EXIT_CODE == 0) {
               let gen = readlink /nix/var/nix/profiles/system | grep -o "[0-9]*"

@@ -6,6 +6,8 @@
 
   imports = [
     outputs.homeManagerModules.fonts
+    outputs.homeManagerModules.software
+
     inputs.nix-colors.homeManagerModules.default
     inputs.nixvim.homeManagerModules.nixvim
 

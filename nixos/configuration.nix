@@ -6,23 +6,10 @@
     inputs.home-manager.nixosModules.home-manager
     inputs.hyprland.nixosModules.default
 
-    # If you want to use modules your own flake exports (from modules/nixos):
-    # outputs.nixosModules.example
-
-    # Or modules from other flakes (such as nixos-hardware):
-    # inputs.hardware.nixosModules.common-cpu-amd
-    # inputs.hardware.nixosModules.common-ssd
-
-    # You can also split up your configuration and import pieces of it here:
-    # ./users.nix
-
-    # Import your generated (nixos-generate-config) hardware configuration
     ./hardware-configuration.nix
-    ./keyboard.nix
     ./samba.nix
 
-    ./flatpak.nix
-    ./virtualization.nix
+    # ./virtualization.nix
     ./gaming.nix
 
     ./desktop
@@ -99,9 +86,9 @@
   # TODO: Configure your system-wide user settings (groups, etc), add more users as needed.
   users.users.aviinl = {
     description = "AviiNL";
-    extraGroups = [ "wheel" "libvirtd" "plugdev" ];
+    extraGroups = [ "wheel" "libvirtd" ];
     isNormalUser = true;
-    shell = pkgs.nushell; # has config
+    shell = pkgs.nushell;
   };
 
   home-manager = {

@@ -44,6 +44,14 @@
         # Nix IDE
         "nix.enableLanguageServer" = true;
         "nix.serverPath" = "${pkgs.nixd}/bin/nixd";
+
+        "terminal.external.linuxExec" =
+          lib.mkIf config.custom.software.kitty.enable
+          "${config.programs.kitty.package}/bin/kitty";
+
+        "terminal.external.osxExec" =
+          lib.mkIf config.custom.software.kitty.enable
+          "${config.programs.kitty.package}/Applications/kitty.app";
       };
       keybindings = [
         {
