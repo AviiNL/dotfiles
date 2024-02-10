@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }: {
+{ inputs, config, lib, pkgs, ... }: {
   imports = [ ./steam-compat.nix ];
 
   programs.steam = { enable = true; };
@@ -24,6 +24,7 @@
         ];
       extraPkgs = pkgs:
         [
+          inputs.nix-gaming.packages.${system}.wine-ge
           # List package dependencies here
         ];
     })
