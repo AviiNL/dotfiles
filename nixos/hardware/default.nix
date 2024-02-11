@@ -2,7 +2,7 @@
   imports = [
     ./filesystem.nix
     ./keyboard.nix
-    # ./nvidia.nix
+    ./nvidia.nix
     ./sound.nix
     # ..
   ];

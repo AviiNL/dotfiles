@@ -23,6 +23,8 @@
       bar {
         swaybar_command waybar
       }
+
+      for_window [class="steam_app_107410"] floating enable
     '';
     config = rec {
       modifier = "Mod4";

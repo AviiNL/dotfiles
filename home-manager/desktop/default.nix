@@ -3,6 +3,7 @@
     ./xdg.nix
     # ./hyprland
     # ./gnome
-    ./sway
+    # ./sway
+    # ./plasma5
   ];
 }

@@ -1,6 +1,5 @@
 { config, lib, pkgs, modulesPath, ... }: {
 
-  # NVIDIA
   hardware = {
     nvidia = {
       open = false;
